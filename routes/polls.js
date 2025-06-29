@@ -13,7 +13,16 @@ router.get("/", auth, async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
-
+router.get("/find",auth,async (res,req)=>{
+  try{
+    const search=await Poll.find(questions.contains("manage"))
+        res.json({search});
+    
+  }
+  catch(err){
+    res.status(500).json({msg:"Server error"})
+  }
+})
 // Create poll
 router.post("/", auth, async (req, res) => {
   const { question, options } = req.body;
